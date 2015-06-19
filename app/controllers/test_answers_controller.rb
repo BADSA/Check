@@ -38,7 +38,34 @@ class TestAnswersController < ApplicationController
 
 
   def save
+    # Array with user answers
+    user_answers = params[:answers]
 
+    cnt = 1
+    user_answers.each do |user_answer|
+      qa = QuestionAnswer.find_by( test_answer_id: params[:id],question_number:cnt)
+      p qa
+      if qa!=nil
+        qa.update(choice:user_answer,test_answer_id:params[:id],question_number:cnt)
+      else
+        QuestionAnswer.create(choice:user_answer,test_answer_id:params[:id],question_number:cnt)
+      end
+      cnt += 1
+    end
+    flash[:success] = "Guardado correctamente a las " + Time.now.strftime("%d/%m/%y %I:%M:%S %P")
+    render layout:false, text: 'Success'
+  end
+
+
+
+
+  def find
+    ta = TestAnswer.find_by( test_id: params[:testID],user_id:params[:userID])
+    test_id = 'no'
+    if (ta != nil)
+      test_id = ta.id
+    end
+    render layout: false, text: test_id
   end
 
 

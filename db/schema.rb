@@ -16,11 +16,10 @@ ActiveRecord::Schema.define(version: 20150609080515) do
   create_table "question_answers", force: true do |t|
     t.string   "choice"
     t.integer  "test_answer_id"
+    t.integer  "question_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "question_answers", ["test_answer_id"], name: "index_question_answers_on_test_answer_id", using: :btree
 
   create_table "questions", force: true do |t|
     t.text     "title"
