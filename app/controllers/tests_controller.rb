@@ -14,8 +14,8 @@ class TestsController < ApplicationController
   respond_to :html
 
   def index
-    @tests = Test.all
-    respond_with(@tests)
+    @tests = tests_by_status
+    render layout: false
   end
 
   def show
@@ -75,4 +75,14 @@ class TestsController < ApplicationController
     def test_params
       params.require(:test).permit(:name, :description, :begins_at, :ends_at,:user_id,:questions_amount)
     end
+
+  def tests_by_status
+    if params[:status] != "NULL"
+      query = {test_answers: { user_id: current_user.id, status: params[:status]}}
+      tests = Test.find TestAnswer.joins(:test).where(query).map(&:test_id)
+      tests
+    else
+      Test.where( user_id: current_user.id )
+    end
+  end
 end

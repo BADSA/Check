@@ -14,7 +14,10 @@
 class PagesController < ApplicationController
 
   def index
-    test_answer = TestAnswer.where(user_id:current_user.id)
+    if user_signed_in?
+      test_answer = TestAnswer.where(user_id:current_user.id)
+    end
+
     #test_id status="complete"
     @tests = Test.all
   end

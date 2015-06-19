@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150609080515) do
 
   create_table "test_answers", force: true do |t|
     t.string   "status"
+    t.integer  "score"
     t.integer  "user_id"
     t.integer  "test_id"
     t.datetime "created_at"

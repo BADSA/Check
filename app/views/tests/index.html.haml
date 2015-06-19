@@ -1,27 +1,27 @@
-%h1 Listing tests
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Begins at
-      %th Ends at
-      %th
-      %th
-      %th
+.row
+  .col-lg-12
+    %h1.page-header
+      Examenes disponibles
 
-  %tbody
-    - @tests.each do |test|
-      %tr
-        %td= test.name
-        %td= test.description
-        %td= test.begins_at
-        %td= test.ends_at
-        %td= link_to 'Show', test
-        %td= link_to 'Edit', edit_test_path(test)
-        %td= link_to 'Destroy', test, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th Nombre
+          %th Descripcion
+          %th Inicia
+          %th Termina
+          %th
 
-%br
-
-= link_to 'New Test', new_test_path
+      %tbody
+        - @tests.each do |test|
+          %tr
+            %td= test.name
+            %td= test.description
+            %td= test.begins_at
+            %td= test.ends_at
+            - if user_signed_in?
+              %td= link_to 'Hacer', test,class:"btn btn-default"
+            - else
+              %td
+                %i Inicie Sesion para hacer
