@@ -1,0 +1,51 @@
+%div.new-test
+  %input#user-id.hidden{value:"#{current_user.id}"}
+  %input{placeholder:"Nombre de la prueba", class:"test-input", id:"test-name"}
+  %br
+  %input{placeholder:"Descripcion de la prueba", class:"test-input", id:"test-description"}
+  %table
+    %tr
+      %td.test-input
+        %label Inicia en
+      %td.test-input
+        %input.datetimepicker#test-begins
+    %tr
+      %td.test-input
+        %label Termina en
+      %td.test-input
+        %input.datetimepicker#test-ends
+  %ul#questionary
+    %li
+      %h4.question-header#current-question 1
+      %table
+        %tr
+          %td
+            %br
+            %label Titulo de la pregunta
+          %td
+            %input.question-input{placeholder:"Pregunta sin titulo",name:"title"}
+        %tr
+          %td
+            %label Tipo de pregunta
+          %td
+            %select.select-qtype.question-input{question:"1",name:"type"}
+              %option{value:"radio"} Seleccion unica
+              %option{value:"checkbox"} Seleccion multiple
+
+      %ul
+        %li
+          %input.test-input{placeholder:"Respuesta 1",class:"opt-q1",name:"choice1"}
+          %input{:class => "answer-q1", :type => "radio",name:"right-answer1",value:"choice1",checked:true}
+        %li
+          %input.test-input{placeholder:"Respuesta 2",class:"opt-q1",name:"choice2"}
+          %input{:class => "answer-q1", :type => "radio",name:"right-answer1",value:"choice2"}
+        %li
+          %input.test-input{placeholder:"Respuesta 3",class:"opt-q1",name:"choice3"}
+          %input{:class => "answer-q1", :type => "radio",name:"right-answer1",value:"choice3"}
+        %li
+          %input.test-input{placeholder:"Respuesta 4",class:"opt-q1",name:"choice4"}
+          %input{:class => "answer-q1", :type => "radio",name:"right-answer1",value:"choice4"}
+  %a#add-question.btn.btn-default.btn-test
+    Agregar otra pregunta
+  .actions
+    %a.btn.btn-success.btn-test#create-test Crear

@@ -1,0 +1,31 @@
+%li
+  %h4.question-header#current-question
+    = @cq
+  %table
+    %tr
+      %td
+        %br
+        %label Titulo de la pregunta
+      %td
+        %input.question-input{placeholder:"Pregunta sin titulo",name:"title"}
+    %tr
+      %td
+        %label Tipo de pregunta
+      %td
+        %select.select-qtype.question-input{question:"#{@cq}",name:"type"}
+          %option{value:"radio"} Seleccion unica
+          %option{value:"checkbox"} Seleccion multiple
+
+  %ul
+    %li
+      %input.test-input{placeholder:"Respuesta 1",class:"opt-q#{@cq}",name:"choice1"}
+      %input#co{:class => "answer-q#{@cq}", :type => "radio",name:"right-answer#{@cq}",value:"choice1",checked:true}
+    %li
+      %input.test-input{placeholder:"Respuesta 2",class:"opt-q#{@cq}",name:"choice2"}
+      %input{:class => "answer-q#{@cq}", :type => "radio",name:"right-answer#{@cq}",value:"choice2"}
+    %li
+      %input.test-input{placeholder:"Respuesta 3",class:"opt-q#{@cq}",name:"choice3"}
+      %input{:class => "answer-q#{@cq}", :type => "radio",name:"right-answer#{@cq}",value:"choice3"}
+    %li
+      %input.test-input{placeholder:"Respuesta 4",class:"opt-q#{@cq}",name:"choice4"}
+      %input{:class => "answer-q#{@cq}", :type => "radio",name:"right-answer#{@cq}",value:"choice4"}

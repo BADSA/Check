@@ -1,0 +1,33 @@
+%h1 Listing questions
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Type
+      %th Choice1
+      %th Choice2
+      %th Choice3
+      %th Choice4
+      %th Right answer
+      %th
+      %th
+      %th
+
+  %tbody
+    - @questions.each do |question|
+      %tr
+        %td= question.title
+        %td= question.type
+        %td= question.choice1
+        %td= question.choice2
+        %td= question.choice3
+        %td= question.choice4
+        %td= question.right_answer
+        %td= link_to 'Show', question
+        %td= link_to 'Edit', edit_question_path(question)
+        %td= link_to 'Destroy', question, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Question', new_question_path
