@@ -17,5 +17,6 @@
 //= require questions
 //= require tests
 //= require jquery.datetimepicker
+//= require jquery.bootstrap.wizard
 
 
