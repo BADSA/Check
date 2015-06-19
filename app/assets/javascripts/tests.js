@@ -238,6 +238,26 @@ var ready = function() {
         alert("Existe el test_answer "+test);
         return test;
     }
+
+
+    $(".test-filter").click(function(){
+        var value = $(this).children("a").attr('value');
+        console.log(value);
+        $.ajax({
+            type: 'get',
+            url: '/tests',
+            data: {status: value}
+        }).done(function(response){
+            console.log(response);
+            if (value == 'complete'){
+                $("#tab1").html(response);
+            }else if (value == 'incomplete'){
+                $("#tab2").html(response);
+            }else {
+                $("#tab3").html(response);
+            }
+        });
+    });
 };
 
 

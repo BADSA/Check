@@ -1,19 +1,26 @@
-%h1 Listing test_answers
+.row
+  .col-lg-12
+    %h1.page-header
+      Examenes disponibles
 
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th Nombre
+          %th Descripcion
+          %th Inicia
+          %th Termina
+          %th
 
-  %tbody
-    - @test_answers.each do |test_answer|
-      %tr
-        %td= link_to 'Show', test_answer
-        %td= link_to 'Edit', edit_test_answer_path(test_answer)
-        %td= link_to 'Destroy', test_answer, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Test answer', new_test_answer_path
+      %tbody
+        - @test_answers.each do |test|
+          %tr
+            %td= test.name
+            %td= test.description
+            %td= test.begins_at
+            %td= test.ends_at
+            - if user_signed_in?
+              %td= link_to 'Hacer', test,class:"btn btn-default"
+            - else
+              %td
+                %i Inicie Sesion para hacer

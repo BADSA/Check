@@ -1,0 +1,16 @@
+#rootwizard
+  %label#user-id{style: 'display: none'}= current_user.id
+  %ul
+    %li.test-filter
+      %a{"data-toggle" => "tab", :href => "#tab1", :class =>"filter-status",:value => "complete"} Examenes Realizados
+    %li.test-filter
+      %a{"data-toggle" => "tab", :href => "#tab2",:class =>"filter-status",:value => "incomplete"} Examenes Incompletos
+    %li.test-filter
+      %a{"data-toggle" => "tab", :href => "#tab3",:class =>"filter-status",:value => "NULL"} Examenes Creados
+
+  .tab-content
+    #tab1.tab-pane
+    #tab2.tab-pane
+    #tab3.tab-pane
+%script
+  $('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-pills'});
