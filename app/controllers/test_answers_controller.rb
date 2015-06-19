@@ -75,7 +75,7 @@ class TestAnswersController < ApplicationController
     end
 
     def test_answer_params
-      params.require(:test_answer).permit(:status, :test_id,:user_id)
+      params.require(:test_answer).permit(:status, :test_id,:user_id,:score)
     end
 
 end

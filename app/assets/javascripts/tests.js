@@ -137,10 +137,10 @@ var ready = function() {
         var userID = $("#user-id").val();
         var testID = $("#test-id").val();
 
-        if (!validateSendTime(testID)){
+        /*if (!validateSendTime(testID)){
             alert("El tiempo ha expirado");
             window.location = "/";
-        }
+        }*/
 
         var userAnswers = [];
         // Iterate collecting user answers
