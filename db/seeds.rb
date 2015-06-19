@@ -7,15 +7,15 @@ Question.delete_all
 
 user = User.create([
                        {id:1 ,email:'badsa@badsacorp.com',name:'badsa',manager:true,password:'12345678'},
-                       {id:2 ,email:'daniel@badsacorp.com',name:'daniel',manager:false,password:'12345678'},
-                       {id:3 ,email:'alonso@badsacorp.com',name:'alonso',manager:false,password:'12345678'},
-                       {id:4 ,email:'bayron@badsacorp.com',name:'bayron',manager:false,password:'12345678'},
-                       {id:5 ,email:'sebas@badsacorp.com',name:'sebas',manager:false,password:'12345678'}
+                       {id:2 ,email:'daniel@badsacorp.com',name:'daniel',manager:false,password:'123'},
+                       {id:3 ,email:'alonso@badsacorp.com',name:'alonso',manager:false,password:'123'},
+                       {id:4 ,email:'bayron@badsacorp.com',name:'bayron',manager:false,password:'123'},
+                       {id:5 ,email:'sebas@badsacorp.com',name:'sebas',manager:false,password:'123'}
                    ])
 
 test = Test.create([
-                      {id:1,name:"Estadistica",description:"Segundo examen de estadistica II semestre 2015 - Sede interuniversitaria de Alajuela",begins_at:Time.now,ends_at:Time.now,user_id:1,questions_amount:2},
-                      {id:2,name:"Programacion orientada a objetos",description:"Los siguientes enunciados corresponden al primer examen de Programacion Orientada a Objetos con un peso de 20% sobre la nota del curso",begins_at:Time.now,ends_at:Time.now,user_id:2,questions_amount:4}
+                      {id:1,name:"Estadistica",description:"Segundo examen de estadistica II semestre 2015 - Sede interuniversitaria de Alajuela",begins_at:Time.now,ends_at:Time.now+200000000,user_id:2,questions_amount:2},
+                      {id:2,name:"Programacion orientada a objetos",description:"Los siguientes enunciados corresponden al primer examen de Programacion Orientada a Objetos con un peso de 20% sobre la nota del curso",begins_at:Time.now,ends_at:Time.now+200000000,user_id:2,questions_amount:4}
                    ])
 
 questions = Question.create([

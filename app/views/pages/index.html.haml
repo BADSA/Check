@@ -1,4 +1,10 @@
 
+- if flash[:success]
+  #error-alert.alert.fade.in.alert-success
+    %div.close-alert{:type => "button"} x
+    %h4#alert-message
+      = flash[:success]
+
 .row
   .col-lg-12
     %h1.page-header
