@@ -14,7 +14,7 @@ class TestsController < ApplicationController
   respond_to :html
 
   def index
-    @completed = false
+    @status = params[:status]
     if params[:status] == 'complete'
       @completed = true
     end
@@ -23,7 +23,26 @@ class TestsController < ApplicationController
   end
 
   def show
+    @isAnswered = false
     @questions = @test.questions
+    ta = TestAnswer.find_by( test_id: params[:id],user_id:current_user.id)
+    if (ta != nil)
+      user_answers = ta.question_answers
+      @questions.zip(user_answers).each do |q,ua|
+
+        isChecked1 = is_checked(ua.choice,"choice1")
+        isChecked2 = is_checked(ua.choice,"choice2")
+        isChecked3 = is_checked(ua.choice,"choice3")
+        isChecked4 = is_checked(ua.choice,"choice4")
+
+        q.add_attrs({check1:isChecked1})
+        q.add_attrs({check2:isChecked2})
+        q.add_attrs({check3:isChecked3})
+        q.add_attrs({check4:isChecked4})
+      end
+      @isAnswered = true
+    end
+
     respond_with(@test)
   end
 
@@ -66,6 +85,7 @@ class TestsController < ApplicationController
     end
 
     score = (rights*100) / total_questions
+    flash[:success] = "Examen realizado - Nota obtenida: "+score.to_s
     render layout:false, text: score
   end
 
@@ -78,6 +98,16 @@ class TestsController < ApplicationController
 
     def test_params
       params.require(:test).permit(:name, :description, :begins_at, :ends_at,:user_id,:questions_amount)
+    end
+
+    def is_checked(user_answers,opt)
+      answers = user_answers.split(",")
+      answers.each do |a|
+        if opt==a
+          return "checked"
+        end
+      end
+      return ""
     end
 
   def tests_by_status

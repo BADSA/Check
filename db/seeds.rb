@@ -14,8 +14,8 @@ user = User.create([
                    ])
 
 test = Test.create([
-                      {id:1,name:"Estadistica",description:"Segundo examen de estadistica II semestre 2015 - Sede interuniversitaria de Alajuela",begins_at:Time.now,ends_at:Time.now,user_id:1,questions_amount:2},
-                      {id:2,name:"Programacion orientada a objetos",description:"Los siguientes enunciados corresponden al primer examen de Programacion Orientada a Objetos con un peso de 20% sobre la nota del curso",begins_at:Time.now,ends_at:Time.now,user_id:2,questions_amount:4}
+                      {id:1,name:"Estadistica",description:"Segundo examen de estadistica II semestre 2015 - Sede interuniversitaria de Alajuela",begins_at:Time.now,ends_at:Time.now+200000000,user_id:2,questions_amount:2},
+                      {id:2,name:"Programacion orientada a objetos",description:"Los siguientes enunciados corresponden al primer examen de Programacion Orientada a Objetos con un peso de 20% sobre la nota del curso",begins_at:Time.now,ends_at:Time.now+200000000,user_id:2,questions_amount:4}
                    ])
 
 questions = Question.create([

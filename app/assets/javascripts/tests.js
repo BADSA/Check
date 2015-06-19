@@ -21,7 +21,9 @@ var ready = function() {
         mask:true
     });
 
-
+    $("body").on("click", ".close-alert", function() {
+        $("#error-alert").hide();
+    });
 
     // To request the server the template for a new question
     // when creating a test.
@@ -114,14 +116,31 @@ var ready = function() {
     });
 
 
-
+    function validateSendTime(testID){
+        $.ajax({
+            method: 'get',
+            url: "/tests/"+testID+"/endTime",
+            data: {answers:userAnswers},
+            async: false
+        }).done(function(scr){
+            score = scr;
+        }).fail(function(jqXHR, textStatus){
+            alert("Ups accion no disponible.");
+        });
+    }
 
 
     // Handles the event to score a test
     // when the user has finished it.
     $("#score-test").click(function(){
+
         var userID = $("#user-id").val();
         var testID = $("#test-id").val();
+
+        /*if (!validateSendTime(testID)){
+            alert("El tiempo ha expirado");
+            window.location = "/";
+        }*/
 
         var userAnswers = [];
         // Iterate collecting user answers
@@ -154,7 +173,6 @@ var ready = function() {
         var testAnswerID = createTest("/test_answers",
             {test_answer:{status:"complete",user_id:userID,test_id:testID,score:score}} );
 
-        alert("Has obtenido un "+score+"!");
         window.location = "/"
     });
 
@@ -180,8 +198,8 @@ var ready = function() {
 
 
     $("#save-answers").click(function(){
-        alert("saving");
         var testID = $("#test-id").val();
+        var userID = $("#user-id").val();
 
         var userAnswers = [];
         // Iterate collecting user answers
@@ -194,20 +212,48 @@ var ready = function() {
             });
             userAnswer = userAnswer.substr(0,userAnswer.length-1);
 
-            alert(userAnswer);
             userAnswers.push(userAnswer);
         });
 
+
+        var testAnswerID = getPrevTestID(testID,userID);
+
+        if (testAnswerID == "no"){
+            testAnswerID= createTest("/test_answers",
+            {test_answer:{status:"incomplete",user_id:userID,test_id:testID}} );
+        }
+
+        var savedAt = null;
         $.ajax({
             method: 'get',
-            url: "/test_answers/"+testID+"/save",
+            url: "/test_answers/"+testAnswerID+"/save",
             data: {answers:userAnswers},
             async: false
         }).done(function(response){
+            savedAt = response;
         }).fail(function(jqXHR, textStatus){
             alert("Ups accion no disponible.");
         });
+
+        window.location = "/"
     });
+
+
+    function getPrevTestID(testID,userID){
+        var test = null;
+        $.ajax({
+            method: 'get',
+            url: "/test_answers/find",
+            data: {testID:testID,userID:userID},
+            async: false
+        }).done(function(response){
+            test = response;
+        }).fail(function(jqXHR, textStatus){
+            alert("Ups accion no disponible.");
+        });
+        return test;
+    }
+
 
     $(".test-filter").click(function(){
         var value = $(this).children("a").attr('value');

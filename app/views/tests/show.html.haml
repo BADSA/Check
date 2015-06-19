@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %div.test-paper
   %a.btn.btn-default.pull-right#save-answers
     Guardar
@@ -21,26 +19,49 @@
     %b Estudiante:
     = current_user.name
 
-  - cnt = 1
-  - @questions.each do |question|
-    %h5.question-header
-      = cnt
-      \-
-      = question.title
-      %input.hidden{name:"question-id",value:"#{question.id}"}
-    %ul.answer-list
-      %li
-        %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice1"}
-        = question.choice1
-      %li
-        %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice2"}
-        = question.choice2
-      %li
-        %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice3"}
-        = question.choice3
-      %li
-        %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice4"}
-        = question.choice4
-    - cnt+=1
+  - if @isAnswered
+    - cnt = 1
+    - @questions.each do |question|
+      %h5.question-header
+        = cnt
+        \-
+        = question.title
+        %input.hidden{name:"question-id",value:"#{question.id}"}
+      %ul.answer-list
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice1","#{question.check1}" => ""}
+          = question.choice1
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice2","#{question.check2}" => ""}
+          = question.choice2
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice3","#{question.check3}" => ""}
+          = question.choice3
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice4","#{question.check4}" => ""}
+          = question.choice4
+      - cnt+=1
+  - else
+    - cnt = 1
+    - @questions.each do |question|
+      %h5.question-header
+        = cnt
+        \-
+        = question.title
+        %input.hidden{name:"question-id",value:"#{question.id}"}
+      %ul.answer-list
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice1"}
+          = question.choice1
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice2"}
+          = question.choice2
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice3"}
+          = question.choice3
+        %li
+          %input{:class => "answer-q#{cnt}", :type => "#{question.type}",name:"user-answer#{cnt}",value:"choice4"}
+          = question.choice4
+      - cnt+=1
   %a.btn.btn-default#score-test Enviar
 

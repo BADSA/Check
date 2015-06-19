@@ -42,6 +42,6 @@ class QuestionAnswersController < ApplicationController
     end
 
     def question_answer_params
-      params.require(:question_answer).permit(:choice)
+      params.require(:question_answer).permit(:choice,:test_answer_id,:question_number)
     end
 end
