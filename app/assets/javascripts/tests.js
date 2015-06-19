@@ -116,14 +116,31 @@ var ready = function() {
     });
 
 
-
+    function validateSendTime(testID){
+        $.ajax({
+            method: 'get',
+            url: "/tests/"+testID+"/endTime",
+            data: {answers:userAnswers},
+            async: false
+        }).done(function(scr){
+            score = scr;
+        }).fail(function(jqXHR, textStatus){
+            alert("Ups accion no disponible.");
+        });
+    }
 
 
     // Handles the event to score a test
     // when the user has finished it.
     $("#score-test").click(function(){
+
         var userID = $("#user-id").val();
         var testID = $("#test-id").val();
+
+        if (!validateSendTime(testID)){
+            alert("El tiempo ha expirado");
+            window.location = "/";
+        }
 
         var userAnswers = [];
         // Iterate collecting user answers
@@ -202,7 +219,6 @@ var ready = function() {
         var testAnswerID = getPrevTestID(testID,userID);
 
         if (testAnswerID == "no"){
-            alert("creatin' xq no exist");
             testAnswerID= createTest("/test_answers",
             {test_answer:{status:"incomplete",user_id:userID,test_id:testID}} );
         }
@@ -235,7 +251,6 @@ var ready = function() {
         }).fail(function(jqXHR, textStatus){
             alert("Ups accion no disponible.");
         });
-        alert("Existe el test_answer "+test);
         return test;
     }
 
