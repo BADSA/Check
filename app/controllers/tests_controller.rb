@@ -14,6 +14,10 @@ class TestsController < ApplicationController
   respond_to :html
 
   def index
+    @completed = false
+    if params[:status] == 'complete'
+      @completed = true
+    end
     @tests = tests_by_status
     render layout: false
   end
@@ -79,7 +83,12 @@ class TestsController < ApplicationController
   def tests_by_status
     if params[:status] != "NULL"
       query = {test_answers: { user_id: current_user.id, status: params[:status]}}
-      tests = Test.find TestAnswer.joins(:test).where(query).map(&:test_id)
+      result = TestAnswer.joins(:test).where(query)
+      tests = Test.find result.map(&:test_id)
+      tests.zip(result).each do |test , answered|
+        test.add_attrs(score: answered.score)
+        p answered
+      end
       tests
     else
       Test.where( user_id: current_user.id )
